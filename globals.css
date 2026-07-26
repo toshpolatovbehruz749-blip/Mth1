@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------
+   Global o'zgaruvchilar va bazaviy uslublar
+--------------------------------------------------------- */
+:root {
+  --font-sans: "Inter", ui-sans-serif, system-ui;
+  --font-display: "Inter", ui-sans-serif, system-ui;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  @apply bg-space-950 text-slate-200 antialiased;
+  overflow-x: hidden;
+}
+
+/* Chiroyli, ingichka scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-space-950;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-nebula-700/60;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-nebula-600;
+}
+
+/* Matn tanlanganda */
+::selection {
+  @apply bg-plasma-400/30 text-white;
+}
+
+/* ---------------------------------------------------------
+   Qayta ishlatiluvchi komponent klasslari (DRY)
+--------------------------------------------------------- */
+@layer components {
+  /* Glassmorphism asosiy sirt */
+  .glass {
+    @apply rounded-3xl border border-white/10 bg-white/[0.04] shadow-glass backdrop-blur-xl;
+  }
+
+  /* Neomorfik "botiq" sirt — o'yin UI hissi uchun */
+  .neo {
+    @apply rounded-3xl border border-white/5 bg-space-800 shadow-neo;
+  }
+
+  /* Gradient matn */
+  .text-gradient {
+    @apply bg-gradient-to-r from-plasma-300 via-nebula-400 to-solar-400 bg-clip-text text-transparent;
+  }
+
+  /* Bo'lim yorlig'i (chip) */
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-plasma-300 backdrop-blur;
+  }
+
+  /* Katakli doska foni */
+  .grid-bg {
+    @apply bg-grid-pattern bg-grid;
+  }
+}
+
+/* Fondagi yulduzlar uchun miltillash */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.25);
+  }
+}
+
+/* 3D flip-card uchun zarur perspektiv utilitalar */
+@layer utilities {
+  .perspective {
+    perspective: 1400px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+}
+
+/* Harakatni kamaytirish rejimi — foydalanuvchi qulayligi (a11y) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
